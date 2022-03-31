@@ -44,6 +44,9 @@ TagManager:
   - name: background
     uniqueID: 4085200981
     locked: 0
+  - name: cave background
+    uniqueID: 2508081181
+    locked: 0
   - name: Water
     uniqueID: 3194695667
     locked: 0
