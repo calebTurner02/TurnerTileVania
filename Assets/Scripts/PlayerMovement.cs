@@ -6,8 +6,9 @@ using UnityEngine.InputSystem;
 public class PlayerMovement : MonoBehaviour
 {
     [SerializeField] float fltRunSpeed = 10f;
-    [SerializeField] float jumpSpeed = 5f;
-    [SerializeField] float ClimbSpeed = 5f;
+    [SerializeField] float fltJumpSpeed = 5f;
+    [SerializeField] float fltClimbSpeed = 5f;
+    [SerializeField] Vector2 deathKick = new Vector2 (10f, 10f);
 
 
     Vector2 moveInput;
@@ -54,7 +55,7 @@ public class PlayerMovement : MonoBehaviour
 
         if(value.isPressed)
         {
-            myRigidBody.velocity += new Vector2 (0f,jumpSpeed);
+            myRigidBody.velocity += new Vector2 (0f,fltJumpSpeed);
         }
     }
 
@@ -90,7 +91,7 @@ public class PlayerMovement : MonoBehaviour
          }
          
 
-        Vector2 ClimbVelocity = new Vector2 (myRigidBody.velocity.x, moveInput.y * ClimbSpeed);
+        Vector2 ClimbVelocity = new Vector2 (myRigidBody.velocity.x, moveInput.y * fltClimbSpeed);
         myRigidBody.velocity = ClimbVelocity;
         myRigidBody.gravityScale = 0;
 
@@ -103,6 +104,8 @@ public class PlayerMovement : MonoBehaviour
         if(myBodyCollider.IsTouchingLayers(LayerMask.GetMask("Enemies")))
         {
             bolIsAlive = false;
+            myAnimator.SetTrigger("Dying");
+            myRigidBody.velocity = deathKick;
         }
     }
         
