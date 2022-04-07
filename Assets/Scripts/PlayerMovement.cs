@@ -17,6 +17,8 @@ public class PlayerMovement : MonoBehaviour
     BoxCollider2D myFeetCollider;
     float fltGravityScaleAtStart;
 
+    bool bolIsAlive = true;
+
  
     void Start()
     {
@@ -29,9 +31,11 @@ public class PlayerMovement : MonoBehaviour
 
     void Update()
     {
+        if(!bolIsAlive) {return;}
         Run();
         FlipSprite();
         ClimbLadder();
+        Die();
     }
    void OnMove(InputValue value)
     {
@@ -41,6 +45,7 @@ public class PlayerMovement : MonoBehaviour
 
     void OnJump(InputValue value)
     {
+        if(!bolIsAlive) {return;}
 
         if(!myBodyCollider.IsTouchingLayers(LayerMask.GetMask("Ground"))) {return;} 
        
@@ -92,4 +97,15 @@ public class PlayerMovement : MonoBehaviour
         bool bolPlayerHasVerticalSpeed = Mathf.Abs(myRigidBody.velocity.y) > Mathf.Epsilon;
         myAnimator.SetBool("IsClimbing", bolPlayerHasVerticalSpeed);
     }
+
+    void Die() 
+    {
+        if(myBodyCollider.IsTouchingLayers(LayerMask.GetMask("Enemies")))
+        {
+            bolIsAlive = false;
+        }
+    }
+        
+        
+    
 }
