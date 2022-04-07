@@ -9,6 +9,8 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] float fltJumpSpeed = 5f;
     [SerializeField] float fltClimbSpeed = 5f;
     [SerializeField] Vector2 deathKick = new Vector2 (10f, 10f);
+    [SerializeField] GameObject bullet;
+    [SerializeField] Transform gun;
 
 
     Vector2 moveInput;
@@ -38,6 +40,13 @@ public class PlayerMovement : MonoBehaviour
         ClimbLadder();
         Die();
     }
+
+    void OnFire(InputValue value)
+    {
+        if(!bolIsAlive) {return;}
+        Instantiate(bullet, gun.position, transform.rotation);
+    }
+
    void OnMove(InputValue value)
     {
         moveInput = value.Get<Vector2>();
