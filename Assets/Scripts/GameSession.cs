@@ -59,6 +59,7 @@ public class GameSession : MonoBehaviour
         SceneManager.LoadScene(intCurrentSceneIndex);
         livesText.text = intPlayerLives.ToString();
     }
+    
 
     void ResetGameSession()
     {
